@@ -213,41 +213,34 @@ public class InicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_botonIngresarMouseExited
 
     private void botonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarActionPerformed
-    String USERNAME = "Admin2007";
-    String PASSWORD = "Admin123";
-    
-    String usuario = txtuser.getText().trim();  // Cambiado aquí
-    String contraseña = new String(txtpassword.getPassword()).trim();
-    
-    if (usuario.equals("Admin2007") && contraseña.equals("Admin123")){
-        adminview admin = new adminview();
-        admin.setVisible(true);
-        this.dispose();
-    }
+        String USERNAME = "Admin2007";
+        String PASSWORD = "Admin";
 
-    if (usuario.isEmpty() || contraseña.isEmpty()){
-        JOptionPane.showMessageDialog(null, "Por favor complete los campos");
-        return;
-    } 
-    
-    
-    
-    userSearch search = new userSearch();
-    boolean acceso = search.accesoUsuario(usuario, contraseña);
-    
-    if (acceso) {
-        pruebaPrincipal pBAcesso = new pruebaPrincipal();
-        pBAcesso.setVisible(true);
-        this.dispose();
-    } else {
-        JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos. Intente de nuevo.");
-    }
+        String usuario = txtuser.getText().trim();  // Cambiado aquí
+        String contraseña = new String(txtpassword.getPassword()).trim();
 
+        if (usuario.equals(USERNAME) && contraseña.equals(PASSWORD)) {
+            adminview admin = new adminview();
+            admin.setVisible(true);
+            this.dispose();
+            return;
+        }
 
+        if (usuario.isEmpty() || contraseña.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor complete los campos");
+            return;
+        }
 
-        
-        
+        userSearch search = new userSearch();
+        boolean acceso = search.accesoUsuario(usuario, contraseña);
 
+        if (acceso) {
+            pruebaPrincipal pBAcesso = new pruebaPrincipal();
+            pBAcesso.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos. Intente de nuevo.");
+        }
     }//GEN-LAST:event_botonIngresarActionPerformed
 
     private void registreseAquiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registreseAquiActionPerformed
