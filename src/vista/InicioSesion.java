@@ -6,8 +6,8 @@ package vista;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
-import model.userSearch;
 import sombra.textoSombra;
+import model.UsuarioDao;
 
 
 public class InicioSesion extends javax.swing.JFrame {
@@ -18,7 +18,7 @@ public class InicioSesion extends javax.swing.JFrame {
          setLocationRelativeTo(null);
          
         
-        textoSombra usuario = new textoSombra( "Correo" , txtuser);
+        textoSombra usuario = new textoSombra( "Usuario" , txtuser);
         textoSombra contraseña = new textoSombra( "Contraseña" , txtpassword);
 
     }
@@ -51,6 +51,7 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtuser = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
+        mostrarContra = new java.awt.Checkbox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -175,6 +176,9 @@ public class InicioSesion extends javax.swing.JFrame {
         jPanel5.add(txtuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 290, 40));
         jPanel5.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 320, 10));
 
+        mostrarContra.setLabel("Mostar contraseña");
+        jPanel5.add(mostrarContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 280, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -213,34 +217,24 @@ public class InicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_botonIngresarMouseExited
 
     private void botonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarActionPerformed
-        String USERNAME = "Admin2007";
-        String PASSWORD = "Admin";
+        String username = txtuser.getText();
+        String password = new String(txtpassword.getPassword());
 
-        String usuario = txtuser.getText().trim();  // Cambiado aquí
-        String contraseña = new String(txtpassword.getPassword()).trim();
+        UsuarioDao userDao = new UsuarioDao();
 
-        if (usuario.equals(USERNAME) && contraseña.equals(PASSWORD)) {
-            adminview admin = new adminview();
-            admin.setVisible(true);
-            this.dispose();
-            return;
-        }
+        boolean isAuthenticated = userDao.authenticateUser(username, password);
 
-        if (usuario.isEmpty() || contraseña.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor complete los campos");
-            return;
-        }
+        if (isAuthenticated) {
 
-        userSearch search = new userSearch();
-        boolean acceso = search.accesoUsuario(usuario, contraseña);
-
-        if (acceso) {
-            pruebaPrincipal pBAcesso = new pruebaPrincipal();
-            pBAcesso.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Login exitoso");
+            pruebaPrincipal dashboard = new pruebaPrincipal();
+            dashboard.setVisible(true);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos. Intente de nuevo.");
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrecta", "Error de Login", JOptionPane.ERROR_MESSAGE);
         }
+        
+       
     }//GEN-LAST:event_botonIngresarActionPerformed
 
     private void registreseAquiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registreseAquiActionPerformed
@@ -318,6 +312,7 @@ public class InicioSesion extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel logintext;
     private javax.swing.JLabel logoLabel;
+    private java.awt.Checkbox mostrarContra;
     private javax.swing.JPanel panelAzulFondoCarro;
     private javax.swing.JButton registreseAqui;
     private javax.swing.JLabel txtAunNotieneCuenta;

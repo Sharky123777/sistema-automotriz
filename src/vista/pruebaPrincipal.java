@@ -82,7 +82,7 @@ public class pruebaPrincipal extends javax.swing.JFrame {
         jLabel33 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         carrito = new javax.swing.JPanel();
-        jLabel32 = new javax.swing.JLabel();
+        jPanel19 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -250,9 +250,9 @@ public class pruebaPrincipal extends javax.swing.JFrame {
         onFirex.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 150, 190, 10));
 
         jButton1.setBackground(new java.awt.Color(102, 0, 0));
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Agregar al carrito");
-        jButton1.setEnabled(false);
+        jButton1.setFocusCycleRoot(true);
         onFirex.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 470, -1, -1));
 
         principal.addTab("OnFirex", onFirex);
@@ -343,6 +343,11 @@ public class pruebaPrincipal extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(0, 0, 0));
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Añadir al carrito.");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         whiback.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 480, -1, -1));
 
         principal.addTab("Whiback", whiback);
@@ -497,24 +502,11 @@ public class pruebaPrincipal extends javax.swing.JFrame {
 
         principal.addTab("Historial", historial);
 
-        jLabel32.setText("carrito");
+        carrito.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout carritoLayout = new javax.swing.GroupLayout(carrito);
-        carrito.setLayout(carritoLayout);
-        carritoLayout.setHorizontalGroup(
-            carritoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(carritoLayout.createSequentialGroup()
-                .addGap(349, 349, 349)
-                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(438, Short.MAX_VALUE))
-        );
-        carritoLayout.setVerticalGroup(
-            carritoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(carritoLayout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(jLabel32)
-                .addContainerGap(436, Short.MAX_VALUE))
-        );
+        jPanel19.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel19.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        carrito.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 540));
 
         principal.addTab("Carrito", carrito);
 
@@ -835,6 +827,10 @@ public class pruebaPrincipal extends javax.swing.JFrame {
         jPanel11.setBackground (Color.BLACK);
     }//GEN-LAST:event_jPanel11MouseExited
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -906,7 +902,6 @@ public class pruebaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
@@ -945,6 +940,7 @@ public class pruebaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
