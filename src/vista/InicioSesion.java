@@ -217,7 +217,8 @@ public class InicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_botonIngresarMouseExited
 
     private void botonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarActionPerformed
-        String username = txtuser.getText();
+      
+    String username = txtuser.getText();
         String password = new String(txtpassword.getPassword());
 
         UsuarioDao userDao = new UsuarioDao();
@@ -225,15 +226,14 @@ public class InicioSesion extends javax.swing.JFrame {
         boolean isAuthenticated = userDao.authenticateUser(username, password);
 
         if (isAuthenticated) {
-
-            JOptionPane.showMessageDialog(this, "Login exitoso");
             pruebaPrincipal dashboard = new pruebaPrincipal();
             dashboard.setVisible(true);
-            this.dispose();
+            this.dispose(); 
         } else {
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrecta", "Error de Login", JOptionPane.ERROR_MESSAGE);
         }
-        
+
+
        
     }//GEN-LAST:event_botonIngresarActionPerformed
 

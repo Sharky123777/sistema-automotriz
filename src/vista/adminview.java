@@ -4,10 +4,17 @@
  */
 package vista;
 
+import java.math.BigDecimal;
+
 import controller.carsController;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.car;
+import model.PlacaCarro;
 import model.carDelete;
+import model.carroDao;
 
 /**
  *
@@ -20,6 +27,8 @@ public class adminview extends javax.swing.JFrame {
      */
     public adminview() {
         initComponents();
+        cargarProfesoresEnTabla();
+
     }
 
     /**
@@ -37,13 +46,12 @@ public class adminview extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        visorDisponibles = new javax.swing.JTable();
-        jPanel4 = new javax.swing.JPanel();
+        tablaDisponible = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
+        añadir = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtPlaca = new javax.swing.JLabel();
         inputMarca = new javax.swing.JTextField();
         txtMarca = new javax.swing.JLabel();
-        inputPlaca1 = new javax.swing.JTextField();
         txtModelo = new javax.swing.JLabel();
         inputModelo = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JLabel();
@@ -57,8 +65,10 @@ public class adminview extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         inputTipoMotor = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        inputAño = new javax.swing.JTextField();
+        cantidad = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        inputAño1 = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -98,63 +108,77 @@ public class adminview extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        visorDisponibles.setBackground(new java.awt.Color(255, 255, 255));
-        visorDisponibles.setModel(new javax.swing.table.DefaultTableModel(
+        tablaDisponible.setBackground(new java.awt.Color(255, 255, 255));
+        tablaDisponible.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Placa", "Marca", "Modelo", "Precio", "FechaRegistro", "Color", "Tipo Motor", "Año"
+                "Marca", "Modelo", "Año", "Precio", "Color", "Tipo Motor", "Fecha ingreso", "Kilometraje", "Placa", "Cantidad"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(visorDisponibles);
+        jScrollPane1.setViewportView(tablaDisponible);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 840, 390));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 840, 340));
+
+        jButton2.setText("Refresh");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
 
         jTabbedPane1.addTab("Disponibles", jPanel3);
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        añadir.setBackground(new java.awt.Color(255, 255, 255));
+        añadir.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("INGRESE LOS DATOS SOLICITADOS.");
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 450, 30));
-
-        txtPlaca.setForeground(new java.awt.Color(0, 0, 0));
-        txtPlaca.setText("Placa:");
-        jPanel4.add(txtPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 320, 20));
+        añadir.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 450, 30));
 
         inputMarca.setBackground(new java.awt.Color(0, 0, 0, 0));
         inputMarca.setForeground(new java.awt.Color(51, 51, 51));
@@ -164,25 +188,15 @@ public class adminview extends javax.swing.JFrame {
                 inputMarcaActionPerformed(evt);
             }
         });
-        jPanel4.add(inputMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 290, 40));
+        añadir.add(inputMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 290, 40));
 
         txtMarca.setForeground(new java.awt.Color(0, 0, 0));
         txtMarca.setText("Marca");
-        jPanel4.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 320, 20));
-
-        inputPlaca1.setBackground(new java.awt.Color(0, 0, 0, 0));
-        inputPlaca1.setForeground(new java.awt.Color(51, 51, 51));
-        inputPlaca1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        inputPlaca1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputPlaca1ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(inputPlaca1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 290, 40));
+        añadir.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 320, 20));
 
         txtModelo.setForeground(new java.awt.Color(0, 0, 0));
         txtModelo.setText("Modelo");
-        jPanel4.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 50, 320, 20));
+        añadir.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 50, 320, 20));
 
         inputModelo.setBackground(new java.awt.Color(0, 0, 0, 0));
         inputModelo.setForeground(new java.awt.Color(51, 51, 51));
@@ -192,11 +206,11 @@ public class adminview extends javax.swing.JFrame {
                 inputModeloActionPerformed(evt);
             }
         });
-        jPanel4.add(inputModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 290, 40));
+        añadir.add(inputModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 290, 40));
 
         txtPrecio.setForeground(new java.awt.Color(0, 0, 0));
         txtPrecio.setText("Precio");
-        jPanel4.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, 320, 20));
+        añadir.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, 320, 20));
 
         inputPrecio.setBackground(new java.awt.Color(0, 0, 0, 0));
         inputPrecio.setForeground(new java.awt.Color(51, 51, 51));
@@ -206,11 +220,11 @@ public class adminview extends javax.swing.JFrame {
                 inputPrecioActionPerformed(evt);
             }
         });
-        jPanel4.add(inputPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 290, 40));
+        añadir.add(inputPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 290, 40));
 
         txtMarca1.setForeground(new java.awt.Color(0, 0, 0));
         txtMarca1.setText("FechaRegistro");
-        jPanel4.add(txtMarca1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 320, 20));
+        añadir.add(txtMarca1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 320, 20));
 
         inputFechaRegistro.setBackground(new java.awt.Color(0, 0, 0, 0));
         inputFechaRegistro.setForeground(new java.awt.Color(51, 51, 51));
@@ -220,7 +234,7 @@ public class adminview extends javax.swing.JFrame {
                 inputFechaRegistroActionPerformed(evt);
             }
         });
-        jPanel4.add(inputFechaRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 290, 40));
+        añadir.add(inputFechaRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 290, 40));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
@@ -230,7 +244,7 @@ public class adminview extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 360, -1, -1));
+        añadir.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 360, -1, -1));
 
         inputColor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         inputColor.addActionListener(new java.awt.event.ActionListener() {
@@ -238,11 +252,11 @@ public class adminview extends javax.swing.JFrame {
                 inputColorActionPerformed(evt);
             }
         });
-        jPanel4.add(inputColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, 290, 40));
+        añadir.add(inputColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, 290, 40));
 
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Color");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, 90, -1));
+        añadir.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, 90, -1));
 
         inputKilometraje.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         inputKilometraje.addActionListener(new java.awt.event.ActionListener() {
@@ -250,27 +264,39 @@ public class adminview extends javax.swing.JFrame {
                 inputKilometrajeActionPerformed(evt);
             }
         });
-        jPanel4.add(inputKilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 290, 40));
+        añadir.add(inputKilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 290, 40));
 
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Kilometraje");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
+        añadir.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
 
         inputTipoMotor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel4.add(inputTipoMotor, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 296, 290, 40));
+        añadir.add(inputTipoMotor, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 296, 290, 40));
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Tipo Motor");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 280, -1, -1));
+        añadir.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 280, -1, -1));
 
-        inputAño.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel4.add(inputAño, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 290, 40));
+        cantidad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cantidadActionPerformed(evt);
+            }
+        });
+        añadir.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 290, 40));
 
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Año");
-        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, -1, -1));
+        añadir.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, -1, -1));
 
-        jTabbedPane1.addTab("Agregar", jPanel4);
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Cantidad:");
+        añadir.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, -1, -1));
+
+        inputAño1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        añadir.add(inputAño1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 290, 40));
+
+        jTabbedPane1.addTab("Agregar", añadir);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -471,10 +497,6 @@ public class adminview extends javax.swing.JFrame {
 
     }//GEN-LAST:event_inputMarcaActionPerformed
 
-    private void inputPlaca1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPlaca1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputPlaca1ActionPerformed
-
     private void inputModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputModeloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputModeloActionPerformed
@@ -489,30 +511,66 @@ public class adminview extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String marca = inputMarca.getText();
+        String cantidades = cantidad.getText(); // Obtener el texto del componente
+        int cantidadEntera = 0; // Variable para almacenar el valor entero
+
+// Verifica si el string es numérico y no está vacío
+        if (!cantidades.isEmpty() && cantidades.matches("\\d+")) { // Comprueba si contiene solo dígitos
+            cantidadEntera = Integer.parseInt(cantidades); // Convertir a Integer
+
+            // Validar la cantidad
+            if (cantidadEntera < 1) {
+                JOptionPane.showMessageDialog(null, "Debe agregar al menos un carro.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else if (cantidadEntera > 50) {
+                JOptionPane.showMessageDialog(null, "Ha superado el limite de carros por agregar.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else {
+                // Aquí puedes continuar con el proceso si la cantidad es válida
+            }
+        } else {
+            // Manejo de error: el String no es un número válido o está vacío
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un número válido.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+
         String modelo = inputModelo.getText();
-        String precio = inputPrecio.getText();
-        String año = inputAño.getText();
+        String precioTexto = inputPrecio.getText();
+        String año = cantidad.getText();
         String color = inputColor.getText();
         String tipoMotor = inputTipoMotor.getText();
         String fecha = inputFechaRegistro.getText();
         String Kilometraje = inputKilometraje.getText();
-        String placa = inputPlaca1.getText();
+
+        // Cargar placas existentes al inicio (puedes hacerlo en el constructor de tu JFrame)
+        PlacaCarro.cargarPlacasExistentes();
 
         carsController controller = new carsController();
 
-        if(marca.isEmpty() || fecha.isEmpty() || precio.isEmpty() || color.isEmpty() || placa.isEmpty()
-            || modelo.isEmpty() || Kilometraje.isEmpty() || tipoMotor.isEmpty() || año.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese  todos los campos");
+        // Validar campos
+        if (marca.isEmpty() || fecha.isEmpty() || precioTexto.isEmpty() || color.isEmpty()
+                || modelo.isEmpty() || Kilometraje.isEmpty() || tipoMotor.isEmpty() || año.isEmpty() || cantidades.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese todos los campos");
             return;
-
         }
-        boolean registrado = controller.registroCarro(marca, modelo, año, precio, color, tipoMotor, fecha, Kilometraje, placa);
 
-        if (registrado ){
-            JOptionPane.showMessageDialog(this, "Carro añadido exitosamente");
+        BigDecimal precio;
+        try {
+            // Convertir el precio a BigDecimal
+            precio = new BigDecimal(precioTexto);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El precio debe ser un número válido");
+            return;
+        }
+
+        // Generar una nueva placa única
+        String nuevaPlaca = PlacaCarro.generarPlacaUnica();
+
+        boolean registrado = controller.registroCarro(marca, modelo, año, precioTexto, color, tipoMotor, fecha, Kilometraje, nuevaPlaca);
+
+        if (registrado) {
+            JOptionPane.showMessageDialog(this, "Carro añadido exitosamente con placa: " + nuevaPlaca);
         } else {
             JOptionPane.showMessageDialog(this, "El auto no se ha podido añadir, intentelo nuevamente");
         }
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -532,7 +590,7 @@ public class adminview extends javax.swing.JFrame {
 
         String inputPlacaAutoEliminar = InputPlacaEliminar.getText();
 
-        if (inputPlacaAutoEliminar.isEmpty()){
+        if (inputPlacaAutoEliminar.isEmpty()) {
             JOptionPane.showInternalMessageDialog(null, "Por favor, llene el campo");
 
         }
@@ -574,6 +632,14 @@ public class adminview extends javax.swing.JFrame {
         resetColor(new JPanel[]{btn_2,btn_3,btn_4}, new JPanel[]{ind_2,ind_3, ind_4});*/
     }//GEN-LAST:event_btn_1MousePressed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        cargarProfesoresEnTabla();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed
+
+    }//GEN-LAST:event_cantidadActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -611,23 +677,25 @@ public class adminview extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField InputPlacaEliminar;
+    private javax.swing.JPanel añadir;
     private javax.swing.JPanel btn_1;
     private javax.swing.JPanel btn_3;
     private javax.swing.JPanel btn_4;
+    private javax.swing.JTextField cantidad;
     private javax.swing.JButton eliminarCarro;
     private javax.swing.JPanel ind_1;
     private javax.swing.JPanel ind_3;
     private javax.swing.JPanel ind_4;
-    private javax.swing.JTextField inputAño;
+    private javax.swing.JTextField inputAño1;
     private javax.swing.JTextField inputColor;
     private javax.swing.JTextField inputFechaRegistro;
     private javax.swing.JTextField inputKilometraje;
     private javax.swing.JTextField inputMarca;
     private javax.swing.JTextField inputModelo;
-    private javax.swing.JTextField inputPlaca1;
     private javax.swing.JTextField inputPrecio;
     private javax.swing.JTextField inputTipoMotor;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -643,20 +711,44 @@ public class adminview extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    public javax.swing.JTable tablaDisponible;
     private javax.swing.JLabel txtMarca;
     private javax.swing.JLabel txtMarca1;
     private javax.swing.JLabel txtModelo;
-    private javax.swing.JLabel txtPlaca;
     private javax.swing.JLabel txtPrecio;
-    public javax.swing.JTable visorDisponibles;
     // End of variables declaration//GEN-END:variables
+
+    public void cargarProfesoresEnTabla() {
+        carroDao profesorDAO = new carroDao();
+        List<car> listaCarros = profesorDAO.obtenerCarros();
+
+        DefaultTableModel model = (DefaultTableModel) tablaDisponible.getModel();
+
+        model.setRowCount(0);
+
+        for (car cars : listaCarros) {
+            model.addRow(new Object[]{
+                cars.getMarca(),
+                cars.getModelo(),
+                cars.getAño(),
+                cars.getPrecio(),
+                cars.getColor(),
+                cars.getTipoMotor(),
+                cars.getKilometraje(),
+                cars.getFechaIngresoo(),
+                cars.getPlaca(),
+                cars.getCantidad()
+
+            });
+        }
+    }
 }

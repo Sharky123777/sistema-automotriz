@@ -317,7 +317,6 @@ public class Registro extends javax.swing.JFrame {
     boolean registrado = controlador.registroUsuario(correo, nombre, apellido, identificacion, user, contraseña);
 
     if (registrado) {
-        JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente.");
         new InicioSesion().setVisible(true);
     } else {
         JOptionPane.showMessageDialog(this, "Error al registrar el usuario. Inténtelo de nuevo.");

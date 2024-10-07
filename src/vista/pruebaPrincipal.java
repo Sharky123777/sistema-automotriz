@@ -5,6 +5,7 @@
 package vista;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -213,7 +214,7 @@ public class pruebaPrincipal extends javax.swing.JFrame {
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/rojo_1.png"))); // NOI18N
-        onFirex.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 650, 380));
+        onFirex.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 620, 380));
 
         jLabel29.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 36)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(0, 0, 0));
@@ -251,8 +252,13 @@ public class pruebaPrincipal extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(102, 0, 0));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Agregar al carrito");
+        jButton1.setText("Comprar");
         jButton1.setFocusCycleRoot(true);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         onFirex.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 470, -1, -1));
 
         principal.addTab("OnFirex", onFirex);
@@ -830,6 +836,16 @@ public class pruebaPrincipal extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+String respuesta = JOptionPane.showInputDialog(null, "¿Está seguro que desea comprar este carro? \n 1. Sí \n 2. No");
+if (respuesta.equals("1")){
+    
+    compraFase cf = new compraFase();
+    cf.setVisible(true);
+    
+}
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

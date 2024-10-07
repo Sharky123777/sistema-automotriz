@@ -11,7 +11,23 @@ public class car {
     private String kilometraje;
     private String fechaIngresoo;
     private String placa;
+    private int cantidad; // Agregar la propiedad cantidad
 
+    // Constructor actualizado
+    public car(String marca, String modelo, String año, Double precio, String color, String tipoMotor, String kilometraje, String fechaIngresoo, String placa, int cantidad) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.año = año;
+        this.precio = precio;
+        this.color = color;
+        this.tipoMotor = tipoMotor;
+        this.kilometraje = kilometraje;
+        this.fechaIngresoo = fechaIngresoo;
+        this.placa = placa;
+        this.cantidad = cantidad; // Inicializar cantidad
+    }
+
+    // Métodos getter y setter
     public String getMarca() {
         return marca;
     }
@@ -84,5 +100,13 @@ public class car {
         this.placa = placa;
     }
 
+    public int getCantidad() {
+        return cantidad;
+    }
 
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+    
+    
 }
